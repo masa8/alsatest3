@@ -39,6 +39,23 @@ int main()
    }else{
    	 printf("Card %i = %s \n", cardNum, snd_ctl_card_info_get_name(cardInfo));
    }
+   
+   int devNum = -1;
+   int totalDevices = 0;
+   
+   for( ;; ) 
+   {
+   	if(( err = snd_ctl_pcm_next_device( cardHandle, &devNum)) < 0)
+   	{
+   		break;
+   	}
+   	
+   	if( devNum < 0 ) break;
+   	
+   	++totalDevices;
+   }
+  	
+   printf( "Found %i digital audio device on card %i\n", totalDevices,cardNum);	 
    }
    snd_ctl_close(cardHandle);
  }
